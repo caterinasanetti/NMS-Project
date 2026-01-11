@@ -1,5 +1,4 @@
 function AD_Bistability_m398()
-%% 1. Parameters 
 V1 = 0.25;
 V2 = 0.11;
 V3 = 2.9;      
@@ -14,7 +13,6 @@ sigma1  = 0.05;
 X_healthy = 0.8125;      
 X_pathological = 9.0;    
 
-%% 2. Simulation Settings 
 T_max_dim = 4000;       
 dt = 0.05;          
 N = round(T_max_dim/dt);
@@ -27,7 +25,6 @@ Y = zeros(1, N+1);
 X(1) = X_healthy; 
 Y(1) = (V2 + k4*X(1)^m)/k2;
 
-% Simulation Loop (Euler-Maruyama)
 for i = 1:N
     fx = drift_X(X(i), Y(i));
     fy = drift_Y(X(i), Y(i));
@@ -37,7 +34,6 @@ for i = 1:N
     if Y(i+1) < 0, Y(i+1) = 0; end
 end
 
-%% 4. Plotting
 figure(11); clf; 
 set(gcf, 'Color', 'w'); 
 hold on;
@@ -63,7 +59,6 @@ set(lgd, 'FontSize', 10, 'FontName', 'Times New Roman');
 
 hold off;
 
-%% 5. Add text annotation with simulation info
 annotation('textbox', [0.65 0.15 0.28 0.12], 'String', ...
     sprintf('Parameters (Shaheen m=3.98):\nε = %.1f, σ₁ = %.2f, m = %.2f\nX_healthy = %.4f, X_path = %.2f', ...
     epsilon, sigma1, m, X_healthy, X_pathological), ...
